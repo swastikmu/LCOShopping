@@ -39,7 +39,7 @@ router.put(
 );
 //delete a product
 router.delete(
-  "/product/:categoryId/:userId",
+  "/product/:productId/:userId",
   isSignedIn,
   isAuthenticated,
   isAdmin,

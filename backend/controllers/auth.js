@@ -52,9 +52,9 @@ exports.signin = (req, res) => {
 
     //send res to frontend
 
-    const { _id, name, emailid, role } = user;
+    const { _id, name, email, role } = user;
 
-    return res.json({ token, user: { _id, name, emailid, role } });
+    return res.json({ token, user: { _id, name, email, role } });
   });
 };
 

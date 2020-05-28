@@ -12,6 +12,7 @@ exports.getProductById = function (req, res, next, id) {
         return res.status(400).json({ error: "Product is not found" });
       }
       req.product = product;
+      next();
     });
 };
 
@@ -69,16 +70,18 @@ exports.photo = function (req, res, next) {
   }
   next();
 };
-
+ 
 exports.removeProduct = function (req, res) {
-  const product = req.product;
-
+  let product = req.product;
+console.log(product);
   product.remove(function (err, product) {
     if (err || !product) {
       return res.status(400).json({ error: "falied to delete" });
     }
-    res.json({ message: `deleted successfully` });
-  });
+    return res.json({
+     message: "Deletion was a success"
+    });
+  })
 };
 
 exports.updateProduct = function (req, res) {
@@ -118,7 +121,7 @@ exports.updateProduct = function (req, res) {
 
 exports.getAllProducts = function (req, res) {
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-  let sortBy = req.query.sortBy ? req.query.sortBy : _id;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
 
   Product.find()
     .select("-photo")
